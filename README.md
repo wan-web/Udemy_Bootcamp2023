@@ -35,3 +35,27 @@ splice메소드는 기존 배열을 업데이트한다.
 # Functions
 Reusable procedures
 function scope, block scope, Lexical scope
+
+# Methods
+객체에 속성으로 함수를 추가할 수 있다. 그것을 methods라고 부른다.
+메서드는 함수에 포함되어 있고 메서드 이름 앞에 점(.)을 찍어 사용한다.
+모든 메서드는 함수이지만 모든 함수가 메서드는 아니다.
+ex) 객체에 메소드 정의하는 법
+const myMath = {
+  square : function( param ) {
+    return statement,
+  }
+} ⬆️⬆️ 기존방법
+const myMath = {
+  suqare(param) {
+    return statement,
+  }
+} ⬆️⬆️ 새로운 방법  " : function "을 생략했다
+
+# this
+메소드에서 this는 같은 객체에 있는 다른 속성에 접근할 때 쓴다.
+this는 함수를 호출한 방법에 따라 달라진다.
+
+# try/catch
+이 둘은 별개이지만 항삼 함께 일하며 오류와 예외처리를 한다.
+자바스크립트에서 오류가 발생하면 그 줄에서 멈추는데 try / catch 문은 try 안에서 오류가 발생하면 catch를 실행하고 다음 프로세스를 계속 이어나간다.
