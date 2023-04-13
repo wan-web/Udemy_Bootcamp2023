@@ -103,7 +103,43 @@ ex) const { born = '1998} = user
 ### DOM (Document Object Model)
 웹페이지를 구성하는 JS 객체들의 집합이다.
 웹페이지가 렌더링 될 때 HTML과 CSS는 JS Objects로 변환된다. 그 Objects는 트리구조이며 최상위에는 Document 객체가 있다.
+getElementById, getElementsByClassName, getElementsByTag 보다 querySelector, querySelectorAll 이 더 최근에 나온 메서드들이다.
+getElement~~를 쓰면 HTMLCollection을 반환하고 querySelector를 쓰면 NodeList를 반환한다.
 
-### HTMLCollection
+### HTMLCollection 배열같은 객체
 HTMLCollection은 배열은 아니지만 인덱스등의 배열 구문을 쓸 수는 있다.
-반복 가능한 집합이지만 배열은 아니다 -> map, filter등 사용불가하지만, for...of 사용가능;
+반복 가능한 집합이지만 배열은 아니다 -> map, filter등 사용불가하지만, for...of, length 사용가능
+
+### innerText, textContent, innerHTML
+innerText와 유사한 textContent.
+display:none 은 innerText에는 없지만 textContent에는 있다.
+
+### .style
+.style 보다 class명으로 스타일을 조작하는것이 더 좋은 방법이다.
+
+### classList - add, remove, toggle
+setAttribute(), getAttribute() 말고 👍classList를 쓰자.
+
+### 한 요소에서 다른 요소로 접근하기
+부모👍parentElement,
+자식👍children - HTMLCollection을 반환함(인덱싱가능),
+형제👍nextElementSibling, previousElementSibling - html요소가 온다.
+nextSibling, previousSibling - textNode가 온다.
+노드가 필요할 경우도 있겠지만 대부분 ElementSiblings를 쓴다.
+
+### 새로운 요소 만들기
+createElement
+
+### 요소 붙이기
+부모.appendChild(새로운요소) - 제일 마지막 자식으로 추가한다.
+appendChild보다 append가 더 최근에 나왔고 유연하다. 
+⭐append - 여러개의 요소 추가 가능하다, 문자열도 추가 가능하다.
+⭐prepend - 첫번째 자식으로 추가하기.
+⭐기준요소.insertAdjacentElement(position, 넣을요소) - 형제로 추가하기.
+position에는 'beforebegin', 'afterbegin', 'beforeend', 'afterend' 가 있다.
+비슷한 기능으로 before, after도 있다. 기준.after(넣을요소)
+
+### 요소 제거하기
+요소.removeChild(자식) - 부모를 선택해야지 제거하고싶은 요소를 제거 가능하다.
+오랫동안 다들 이렇게 해왔지만 remove() 메서드가 새로 나왔다.
+⭐제거하려는요소.remove();
