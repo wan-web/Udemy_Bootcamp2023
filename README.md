@@ -100,7 +100,7 @@ ex) const { born = '1998} = user
 = 를 사용해 default값을 줄 수 있다. 이미 객체에 그 키값이 있다면 default값을 무시함
 매개변수에서도 구조분해가 가능하고 default값도 줄 수 있다.
 
-### DOM (Document Object Model)
+## DOM (Document Object Model)
 웹페이지를 구성하는 JS 객체들의 집합이다.
 웹페이지가 렌더링 될 때 HTML과 CSS는 JS Objects로 변환된다. 그 Objects는 트리구조이며 최상위에는 Document 객체가 있다.
 getElementById, getElementsByClassName, getElementsByTag 보다 querySelector, querySelectorAll 이 더 최근에 나온 메서드들이다.
@@ -143,3 +143,28 @@ position에는 'beforebegin', 'afterbegin', 'beforeend', 'afterend' 가 있다.
 요소.removeChild(자식) - 부모를 선택해야지 제거하고싶은 요소를 제거 가능하다.
 오랫동안 다들 이렇게 해왔지만 remove() 메서드가 새로 나왔다.
 ⭐제거하려는요소.remove();
+
+## DOM Events
+onclick, onmouseenter
+
+## 이벤트 객체
+이벤트 객체는 콜백함수에 자동으로 전달된다.
+키보드이벤트에서 key와 keyCode는 다르니까 확인해가면서 쓰자.
+이벤트 객체에는 preventDefault() 메서드가 있다. 기본 동작을 방지하는것.
+stopPropagation() 이벤트 버블링을 막는것.
+## Form 객체
+preventDefault()
+Form객체에서는 elements 속성에 name값을 지정한 input들에 바로 접근이 가능하다.
+ex) form.elements.username
+## Input 이벤트
+change - blur 될때 실행된다(input을 떠날때) - select태그에서 쓰면된다.
+입력값이 달라질때마다 이벤트를 발생시키고 싶으면 input 이벤트를 쓰자.
+쉬프트나 값이 입력되지 않을때는 발생하지 않지만 붙여넣기, 음성 등에는 발생한다.
+## 이벤트 버블링
+요소에서 이벤트가 발생할 때 더 높은 레벨로 이벤트가 계속 발생한다.(공기 방울이 위로 올라오듯이, 아래로는 진행 안됨)
+자식요소에 null인 이벤트가 부모요소에 있을때 자식요소에 그 이벤트 발생시 부모요소 이벤트 작동함 
+ex) 자식 더블클릭 , 부모 클릭 이벤트가 정의되어있을때 자식을 클릭만해도 부모가 클릭됨.
+⭐e.stopPropagation()을 써서 이벤트 버블링을 막을 수 있다.
+## 이벤트 위임
+이벤트 수신기를 부모에 달아서 동적으로 생성되는 자식들을 관리할 수 있다.
+e.target.nodeName을 쓰자.
