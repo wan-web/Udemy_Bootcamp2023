@@ -204,3 +204,12 @@ axios.get('rul주소', {params : { 키 : 값}}); 으로 쿼리스트링을 객�
 ex) 각 배열들은 배열 메서드를 가지고 있는게 아니라 프로토타입의 메서드를 참조하는 것
 Array.prototype ( 배열의 프로토타입 )
 프로토타입에 사용자 정의 함수를 추가하면 다른 객체에서 그것을 사용할 수 있다. (그렇게 좋은 방식은 아니다 - 기존에 정의되었던것을 덮어쓸수도있음.)
+
+# BackEnd
+## Terminal이란 텍스트를 통해 내 기기와 상호작용할 수 있는 텍스트 기반의 프롬프트
+## Shell은 Terminal에서 실행되는 소프트웨어가 있는 프로그램
+mkdir(make directory) : 공백 이용해서 여러 폴더 생성가능. 다른 경로에 생성가능, 
+cd(change directory) : ..(부모 폴더) /(절대 경로),
+touch() : 접근 시간과 수정 시간 변경 (그 파일이 없으면 생성),
+ls(list), pwd(print working directory), ~(default directory), /(root directory), rm(remove) : 파일삭제 (휴지통으로 안가고 그냥 삭제된다), rmdir : 빈폴더 삭제,
+rm -rf : 폴더 삭제
