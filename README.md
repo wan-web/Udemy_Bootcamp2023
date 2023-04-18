@@ -213,3 +213,23 @@ cd(change directory) : ..(부모 폴더) /(절대 경로),
 touch() : 접근 시간과 수정 시간 변경 (그 파일이 없으면 생성),
 ls(list), pwd(print working directory), ~(default directory), /(root directory), rm(remove) : 파일삭제 (휴지통으로 안가고 그냥 삭제된다), rmdir : 빈폴더 삭제,
 rm -rf : 폴더 삭제
+
+# Node.js
+명령어 = { node : REPL - 읽고 평가하고 출력한다. (브라우저의 js콘솔은 REPL이다),
+          .help : 명령어 목록,
+          .exit : REPL 종료( ctrl + c 도 된다.),
+          global : global 객체 ( 브라우저에서 윈도우 같은 최상위 객체 ),
+          node 파일명 : 파일을 실행함
+        }
+
+Process 객체
+
+### 서로 다른 파일 간에 js코드를 공유하는 법
+파일 불러오기 - require()
+파일 내보내기 - module.exports = {}
+
+### npm init
+package.json을 만드는 생성 유틸리티인데 필수는 아니지만 쉬운 방법이다.
+
+### npm install
+package.json에 dependencies 모듈들을 한번에 받을 수 있다.
