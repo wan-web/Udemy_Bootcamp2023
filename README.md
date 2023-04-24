@@ -233,3 +233,141 @@ package.json을 만드는 생성 유틸리티인데 필수는 아니지만 쉬�
 
 ### npm install
 package.json에 dependencies 모듈들을 한번에 받을 수 있다.
+
+# Express - 프레임워크
+설치 : npm i express
+브라우저에 Cannot GET / 이라고 뜬다면 서버는 존재하지만 반환할게 없다는 것.
+app.use는 요청이 들어오면 콜백함수를 실행한다. req, res 2개의 콜백함수를 매개변수로 쓴다. res는 자동으로 headers의 content-type을 설정해준다. 한번밖에 못 씀.
+
+## 라우팅
+app.get('/주소', 콜백함수(req, res){}) - get요청에만 응답한다.
+app.post('/주소', 콜백함수(req, res){})
+get, post, delete, put
+주소 뒤에 : 를 붙여 변수를 쓸 수 있다.
+
+## 템플레이팅 (EJS)
+npm install ejs
+app.set('view engine', 'ejs'); 앱 객체에 view engine 키의 값은 ejs로 설정.
+Express는 views나 템플릿이 views 디렉토리 안에 있다고 설계되어있다.
+views폴더에 ejs파일을 만든다.
+res.send("문자열")을 보내는 대신 파일을 보낼 수 있다. res.render()메서드 사용
+views경로 지정 : [
+  const path = require('path');,
+  app.set('views', path.join(__dirname, '/views'))
+]
+
+### <%= %>
+ejs파일엔 로직이 적은게 더 나은 방법( 값을 만들어서 전달 ) - 템플릿은 가능한 멍청하게 만들자.
+res.render('ejs파일', 객체); ejs파일에 객체를 전달한다. 그러면 ejs파일에서 객체의 key에 접근이 가능하다. <%= key %>
+
+### EJS의 조건문
+<% if() { %>
+ <h1>lorem</h1>
+<% } %>
+또는 삼항연산자 <% () ? '' : '' %>
+
+### EJS의 loop
+<% for(let item of items) { %>
+  <h2><%= item %></h2>
+<% } %>
+
+### Express에 정적 Asset 사용하기
+app.use(express.static('public')); express.static은 미들웨어다. 제공하고 싶은 Asset 폴더를 인수로 전달한다. 예제에서는 public 폴더
+app.use는 요청을 받을때마다 실행한다. 요청을 받거나 보내는것과 관련이 없다.
+사용하는 곳에서는 public 폴더는 안쓴다.
+<link href="/static/app.css"> -> public/app.css 파일 참조
+app.use('/static', express.static(path.join(__dirname, 'public'))) - index.js
+
+### EJS와 파일분할
+<%- include('파일경로') %> - 파일경로 시작위치는 views폴더다.
+
+## GET요청과 POST요청
+GET요청은 body를 작성할 수 없다. 쿼리스트링으로 검색, 정렬에 씀. 백엔드에 영향을 주지 않는다.
+get - req.query , post - req.body 안에 데이터가 들어있다.
+req.body는 문자열이 들어가기 때문에 어떤 데이터로 해석할지 정의 해줘야한다.
+app.use(express.urlencoded({ extended: true })) //
+req.body를 URL 암호화 데이터로 분석할 미들웨어 사용
+
+## redirect
+res.redirect('경로');
+
+## UUID
+npm i uuid
+
+## PUT요청과 PATCH요청
+PUT요청은 전체 내용을 업데이트 하는 용도(기존 내용을 전부 교체)
+PATCH는 부분적으로 업데이트(사용자 ID는 두고 본문만 바꾼다던지)
+
+## method-override
+ejs파일에서는 get, post 요청밖에 할 수 없어서 method-override를 쓰면된다.
+npm i method-override
+index.js에서 
+const methodOverride = require('method-override'); 
+app.use(methodOverride('_method'));
+ejs파일에서 
+<form method="post" action="/comments/<%= comment.id %>/edit?_method=PATCH">
+
+
+# MongoDB
+NoSQL이 SQL 보다 훨씬 유연하다. 미리 스키마를 정의할 필요가 없다.
+Mongo - Node 가 인기가 많은 조합이다. MEAN & MERN stacks
+1년 후 쯤엔 MySQL이나 Postgres를 익히길 추천함.
+
+### 데이터베이스 만들기
+use 데이터베이스명
+
+### Insert Methods
+db.collection.insertOne({}) - 객체 전달
+db.collection.insertMany([]) - 객체의 배열을 전달
+_id를 빠뜨리면 자동으로 생성해준다.
+
+### Find Methods
+db.collection.find({키 : '값'}) // collection에서 키 : '값'이 일치한 항목들을 찾는다.
+db.collection.findOne({키 : '값'}) // 일치한 항목 한개를 찾는다.
+db.collection.find({}) // 전체 불러오기
+
+### Update Methods
+db.collection.updateOne(선택자 객체, {⭐$set : {변경할 키 : 값}}) - 키가 없으면 새롭게 추가된다.
+db.collection.updateMany() - 선택자객체와 일치한 모든 값들을 업데이트한다.
+$set - 필드를 대체하거나 추가. (가장 많이 쓰는 연산자)
+$currentDate - 문서에 현재 날짜를 설정할 때 상요한다.
+
+### Delete Methods
+db.collection.deleteOne(선택자 객체) - 선택자와 일치한 데이터중 첫번째 데이터 삭제
+db.collection.deleteMany(선택자 객체) - 선택자에 빈객체를 입력하면 전체 삭제
+
+## Mongoose
+설치하기 : npm i mongoose무
+
+### 연결하기
+mongoose 홈페이지에서 퀵스타트 참고
+
+### schema 정의
+new mongoose.schema({객체});
+
+### Model 만들기
+schema를 가져와서 model 만들기
+mongoose.model('모델명', schema) //모델명은 단수형이면서 첫번째 문자는 대문자로 작성한다. 몽구스가 자동으로 모델명을 복수로 첫문자를 소문자로 한 collection을 만든다.
+new 모델명({})로 데이터 인스턴스를 만든다.
+
+1.몽구스 연결 2.스키마 생성 3.모델 생성
+
+카테고리 정렬은 쿼리스트링으로 받아서 정렬하자.
+
+# Express 미들웨어
+미들웨어의 개념과 정의 ( 쿠키, 세션, 인증, 로그인 등에 사용)
+미들웨어는 요청과 응답사이의 생명주기 내에서 실행되는 함수다.
+요청객체와 응답객체에 접근할 수 있다. ex) req.body 파싱하기.
+연쇄적으로 다음 미들웨어를 호출 할 수 있다.
+
+### morgan 미들웨어
+모든 요청을 log에 기록한다.
+
+## 다음 미들웨어 호출하는 방법
+app.get('/', function(req, res, next) {
+  next();
+})
+3번재 매개변수가 다음 미들웨어다.
+app.use('/dogs', callback) // app.use도 경로를 설정해서 해당 경로의 요청에만 실행하도록 할 수 있다.
+가장 많이 쓰는 방법은
+⭐app.get('/dogs', 미들웨어, callback) - 미들웨어에서 next()를 실행하면 다음 callback이 실행된다. 미들웨어는 여러개도 추가 가능하다.
